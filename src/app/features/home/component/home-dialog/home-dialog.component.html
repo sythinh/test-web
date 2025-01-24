@@ -1,0 +1,53 @@
+<h1 mat-dialog-title>{{ data.action }} Atm</h1>
+<div class="form-container" mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="onSaveClick()">
+    <mat-form-field class="custom-height" appearance="outline">
+      <mat-label>ATM Name</mat-label>
+      <input matInput formControlName="atmName" [readonly]="data.action == 'View'">
+    </mat-form-field>
+
+    <mat-form-field class="custom-height" appearance="outline">
+      <mat-label>Manufacturer</mat-label>
+      <input matInput formControlName="manufacturer" [readonly]="data.action == 'View'">
+    </mat-form-field>
+
+    <mat-form-field class="custom-height" appearance="outline">
+      <mat-label>Type</mat-label>
+      <input matInput formControlName="type" [readonly]="data.action == 'View'">
+    </mat-form-field>
+
+    <mat-form-field class="custom-height" appearance="outline">
+      <mat-label>Serial Number</mat-label>
+      <input matInput formControlName="serialNumber" [readonly]="data.action == 'View'">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="data.action != 'View'">
+      <div>
+        <mat-toolbar>
+          <input [ngClass]="{'displayName': data.element?.image}" matInput [value]="selectedFileNames.length ? selectedFileNames : 'Select Images'" />
+        </mat-toolbar>
+    
+        <input
+          type="file"
+          id="fileInput"
+          name="fileInput"
+          accept="image/*" multiple 
+          (change)="selectFiles($event)"
+        />
+        <div *ngIf="imagePreview">
+          <img [src]="imagePreview? imagePreview : data.element?.image" alt="Image Preview" class="preview">
+        </div>
+      </div>
+    </mat-form-field>
+    <div class="imagePreview" *ngIf="imagePreview && data.action == 'View'">
+      Image:
+      <img [src]="imagePreview? imagePreview : data.element?.image" alt="Image Preview" class="preview">
+    </div>
+    
+
+    <div class="btn-actions">
+      <button class="btn-submit" mat-raised-button type="submit" [disabled]="data.action == 'View'">Submit</button>
+      <button mat-raised-button (click)="onCancelClick()" type="button">Close</button>
+    </div>
+  </form>
+</div>

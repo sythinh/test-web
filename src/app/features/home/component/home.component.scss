@@ -1,0 +1,28 @@
+.container {
+    height: calc(100vh - 110px);
+    overflow-y: auto;
+    table {
+    width: 100%;
+
+    .mat-column-actions {
+        width: 20%;
+        text-align: center;
+    }
+
+    .preview {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+    .actions-container {
+        padding: 10px 24px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;  
+        
+        .btn-create {
+            margin-right: 10px;
+        }
+    }
+}

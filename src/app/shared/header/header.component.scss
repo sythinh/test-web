@@ -1,0 +1,23 @@
+.header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+  
+    .container {
+      display: flex;
+    //   justify-content: center;
+      align-items: center;
+  
+      .logo {
+        img {
+          height: 40px;
+          margin-top: 5px;
+          margin-right: 10px;
+        }
+      }
+  
+      h2 {
+        margin: 0;
+      }
+    }
+  }
