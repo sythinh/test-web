@@ -37,14 +37,17 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 1. Clone repository:
 
    ```sh
-   git clone https://github.com/quoclh94/ng-Atm.git
-   cd ng-Atm
+   git clone git@github.com:sythinh/test-web.git
+   cd test-web
    npm install
    ng serve
+
+   ```
 
 2. Open your browser and navigate to: http://localhost:4200
 
 3. Login Information
-Below are the accounts that can be used to log in to the application:
- - User: user
- - Password: password
+   Below are the accounts that can be used to log in to the application:
+
+- User: user
+- Password: password
