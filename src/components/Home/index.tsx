@@ -5,7 +5,13 @@ import { Input } from 'antd'
 import { ChangeEvent, useEffect, useState } from 'react'
 import '@ant-design/v5-patch-for-react-19'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { UserOutlined } from '@ant-design/icons'
+import {
+  UserOutlined,
+  PlusOutlined,
+  ExportOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons'
 
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
@@ -83,9 +89,8 @@ const HomeComponent = () => {
             type="primary"
             style={{ marginRight: 8 }}
             onClick={() => handleEdit(record)}
-          >
-            Edit
-          </Button>
+            icon={<EditOutlined />}
+          />
 
           {/* Delete Button with Confirmation */}
           <Popconfirm
@@ -94,7 +99,7 @@ const HomeComponent = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Button type="default">Delete</Button>
+            <Button type="default" icon={<DeleteOutlined />} />
           </Popconfirm>
         </>
       ),
@@ -244,8 +249,6 @@ const HomeComponent = () => {
         </div>
         <div className="flex gap-2 items-center">
           <Search placeholder="Search" onChange={handleSearchTerm} />
-          <Button onClick={handleAddNewATM}>Add New ATM</Button>
-          <Button onClick={handleExportData}>Export Data</Button>
         </div>
       </Header>
       <Content className="h-screen">
@@ -255,11 +258,28 @@ const HomeComponent = () => {
             minHeight: 380,
           }}
         >
-          <Table dataSource={data} columns={columns} loading={isLoading} />;
+          <div className="flex items-center justify-end gap-3 mb-2">
+            <Button onClick={handleAddNewATM} icon={<PlusOutlined />}></Button>
+            <Button onClick={handleExportData} icon={<ExportOutlined />}>
+              Export Data
+            </Button>
+          </div>
+          <Table
+            dataSource={data}
+            columns={columns}
+            loading={isLoading}
+            footer={() => (
+              <div className="flex items-center justify-end">
+                <Button onClick={handleExportData} icon={<ExportOutlined />}>
+                  Export Data
+                </Button>
+              </div>
+            )}
+          />
         </div>
       </Content>
 
-      <Footer style={{ textAlign: 'center' }}>Created by Ant UED</Footer>
+      <Footer style={{ textAlign: 'center' }}></Footer>
       {isOpenModal && (
         <ATMForm
           defaultValue={atm!}
