@@ -65,12 +65,13 @@ const HomeComponent = () => {
       title: 'Image',
       dataIndex: 'image',
       key: 'image',
-      render: (image: string) =>
-        image ? (
-          <Image src={image} alt="avatar" width={50} height={50} />
-        ) : (
-          <Avatar size={50} icon={<UserOutlined />} />
-        ),
+      render: (image: string) => {
+        const avatarProps = image
+          ? { src: image, alt: 'avatar' }
+          : { icon: <UserOutlined /> }
+
+        return <Avatar size={50} {...avatarProps} />
+      },
     },
     {
       title: 'Actions',
