@@ -1,36 +1,7 @@
-'use client'
-import { Layout } from 'antd'
-
-const { Header, Content, Footer } = Layout
+import HomeComponent from '@/components/Home'
 
 const Home = () => {
-  return (
-    <Layout>
-      <Header
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 1,
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <div className="demo-logo" />
-      </Header>
-      <Content style={{ padding: '0 48px' }}>
-        <div
-          style={{
-            padding: 24,
-            minHeight: 380,
-          }}
-        >
-          Content
-        </div>
-      </Content>
-      <Footer style={{ textAlign: 'center' }}>Created by Ant UED</Footer>
-    </Layout>
-  )
+  return <HomeComponent />
 }
 
 export default Home
