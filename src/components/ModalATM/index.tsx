@@ -80,7 +80,11 @@ const ATMForm = ({
     <Modal
       title={
         <Typography.Title level={3} className="text-lg font-bold">
-          {defaultValue?.typeForm ? 'Edit ATM' : 'Add New ATM'}
+          {defaultValue?.typeForm && !defaultValue?.isView
+            ? 'Edit ATM'
+            : defaultValue?.typeForm && defaultValue?.isView
+            ? ' View ATM Information'
+            : 'Add New ATM'}
         </Typography.Title>
       }
       open={isOpenModal}
@@ -100,7 +104,7 @@ const ATMForm = ({
           name="atmName"
           rules={[{ required: true, message: 'ATM name is required' }]}
         >
-          <Input placeholder="Enter ATM name" />
+          <Input placeholder="Enter ATM name" readOnly={defaultValue?.isView} />
         </Form.Item>
 
         <Form.Item
@@ -108,7 +112,10 @@ const ATMForm = ({
           name="manufacturer"
           rules={[{ required: true, message: 'Manufacturer is required' }]}
         >
-          <Input placeholder="Enter manufacturer name" />
+          <Input
+            placeholder="Enter manufacturer name"
+            readOnly={defaultValue?.isView}
+          />
         </Form.Item>
 
         <Form.Item
@@ -116,7 +123,11 @@ const ATMForm = ({
           name="type"
           rules={[{ required: true, message: 'Please select ATM type' }]}
         >
-          <Select placeholder="Select ATM type" options={ATMType}></Select>
+          <Select
+            placeholder="Select ATM type"
+            options={ATMType}
+            disabled={defaultValue?.isView}
+          />
         </Form.Item>
 
         <Form.Item
@@ -124,58 +135,74 @@ const ATMForm = ({
           name="serialNumber"
           rules={[{ required: true, message: 'Serial number is required' }]}
         >
-          <Input type="number" placeholder="Enter serial number" />
+          <Input
+            type="number"
+            placeholder="Enter serial number"
+            readOnly={defaultValue?.isView}
+          />
         </Form.Item>
 
         <Form.Item label="ATM Image" name="image">
-          <Upload
-            name="image"
-            ref={uploadInputRef}
-            showUploadList={false}
-            style={{ display: 'none' }}
-            beforeUpload={beforeUpload}
-            onChange={handleUploadImage}
-          >
-            {' '}
-            {imageUrl ? (
-              <Avatar
-                size={120}
-                src={imageUrl}
-                className="!border-zinc-400 relative"
-                crossOrigin="anonymous"
-                data-testid="avatar-image"
-              />
-            ) : (
-              <Button
-                icon={<UploadOutlined />}
-                size="large"
-                className="bg-blue-500 text-white"
-              >
-                Upload Image
-              </Button>
-            )}
-          </Upload>
+          {!defaultValue?.isView ? (
+            <Upload
+              name="image"
+              ref={uploadInputRef}
+              showUploadList={false}
+              style={{ display: 'none' }}
+              beforeUpload={beforeUpload}
+              onChange={handleUploadImage}
+            >
+              {' '}
+              {imageUrl ? (
+                <Avatar
+                  size={120}
+                  src={imageUrl}
+                  className="!border-zinc-400 relative"
+                  crossOrigin="anonymous"
+                  data-testid="avatar-image"
+                />
+              ) : (
+                <Button
+                  icon={<UploadOutlined />}
+                  size="large"
+                  className="bg-blue-500 text-white"
+                >
+                  Upload Image
+                </Button>
+              )}
+            </Upload>
+          ) : (
+            <Avatar
+              size={120}
+              src={imageUrl}
+              className="!border-zinc-400 relative"
+              crossOrigin="anonymous"
+              data-testid="avatar-image"
+            />
+          )}
         </Form.Item>
 
         <Form.Item>
-          <div className="text-center flex items-center justify-center gap-2">
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="bg-blue-500 text-white px-6 py-2"
-            >
-              Save Change
-            </Button>
+          {!defaultValue?.isView && (
+            <div className="text-center flex items-center justify-center gap-2">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="bg-blue-500 text-white px-6 py-2"
+              >
+                Save Change
+              </Button>
 
-            <Button
-              type="default"
-              htmlType="button"
-              className="text-white px-6 py-2"
-              onClick={onCancel}
-            >
-              Cancel
-            </Button>
-          </div>
+              <Button
+                type="default"
+                htmlType="button"
+                className="text-white px-6 py-2"
+                onClick={onCancel}
+              >
+                Cancel
+              </Button>
+            </div>
+          )}
         </Form.Item>
       </Form>
     </Modal>

@@ -6,4 +6,5 @@ export type IATMType = {
   serialNumber?: number
   image: string | any
   typeForm?: string
+  isView?: boolean
 }

@@ -11,6 +11,7 @@ import {
   ExportOutlined,
   EditOutlined,
   DeleteOutlined,
+  EyeOutlined,
 } from '@ant-design/icons'
 
 import * as XLSX from 'xlsx'
@@ -84,6 +85,12 @@ const HomeComponent = () => {
       key: 'actions',
       render: (_, record) => (
         <>
+          <Button
+            type="primary"
+            style={{ marginRight: 8 }}
+            onClick={() => handleViewATM(record)}
+            icon={<EyeOutlined />}
+          />
           {/* Edit Button */}
           <Button
             type="primary"
@@ -195,6 +202,11 @@ const HomeComponent = () => {
   const handleEdit = (record: IATMType) => {
     setIsOpenModal(true)
     setATM({ ...record, typeForm: 'edit' })
+  }
+
+  const handleViewATM = (record: IATMType) => {
+    setIsOpenModal(true)
+    setATM({ ...record, typeForm: 'edit', isView: true })
   }
 
   const handleDelete = async (record: string) => {
