@@ -1,10 +1,12 @@
 'use client'
-import { Button, Layout, Popconfirm, Table, notification } from 'antd'
+import { Avatar, Button, Layout, Popconfirm, Table, notification } from 'antd'
 import Image from 'next/image'
 import { Input } from 'antd'
 import { ChangeEvent, useEffect, useState } from 'react'
 import '@ant-design/v5-patch-for-react-19'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { UserOutlined } from '@ant-design/icons'
+
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 
@@ -63,14 +65,12 @@ const HomeComponent = () => {
       title: 'Image',
       dataIndex: 'image',
       key: 'image',
-      render: (image: string) => (
-        <Image
-          src={image ? image : 'https://via.placeholder.com/150'}
-          alt="avatar"
-          width={50}
-          height={50}
-        />
-      ),
+      render: (image: string) =>
+        image ? (
+          <Image src={image} alt="avatar" width={50} height={50} />
+        ) : (
+          <Avatar size={50} icon={<UserOutlined />} />
+        ),
     },
     {
       title: 'Actions',
@@ -122,17 +122,20 @@ const HomeComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true)
         const result = await apiService.get(
           END_POINT.BANKS,
           searchParams?.get('query') || '',
         )
-        console.log('result', result)
         const dataSource = result.map((item: IATMType) => ({
           ...item,
           key: item.id,
         }))
         setData(dataSource)
-      } catch (err) {}
+        setIsLoading(false)
+      } catch (err) {
+        setIsLoading(false)
+      }
     }
 
     fetchData()
@@ -251,7 +254,7 @@ const HomeComponent = () => {
             minHeight: 380,
           }}
         >
-          <Table dataSource={data} columns={columns} />;
+          <Table dataSource={data} columns={columns} loading={isLoading} />;
         </div>
       </Content>
 
