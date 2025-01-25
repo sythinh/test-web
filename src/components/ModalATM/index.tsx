@@ -9,6 +9,7 @@ import {
   Modal,
   Typography,
   Avatar,
+  Spin,
 } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 
@@ -86,7 +87,6 @@ const ATMForm = ({
       onCancel={onCancel}
       footer={null}
       width={600}
-      confirmLoading={true}
     >
       <Form
         form={form}
@@ -94,6 +94,7 @@ const ATMForm = ({
         onFinish={onFinish}
         initialValues={defaultValue}
       >
+        {loading && <Spin size="large" fullscreen />}
         <Form.Item
           label="ATM Name"
           name="atmName"
